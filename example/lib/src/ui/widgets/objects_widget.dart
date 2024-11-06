@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../widgets.dart';
 
-final class ObjectsView extends StatelessWidget {
+final class ObjectsWidget extends StatelessWidget {
   final List<Object> objects;
 
-  const ObjectsView(
+  const ObjectsWidget(
     this.objects, {
     super.key,
   });

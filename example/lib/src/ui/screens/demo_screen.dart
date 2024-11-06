@@ -1,17 +1,14 @@
-import 'package:fake_store_api_pkg/fake_store_api_pkg.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../consts.dart';
-import '../views.dart';
+import '../providers.dart';
 import '../widgets.dart';
 
 final class DemoScreen extends StatefulWidget {
-  final ProductsApi _productsApi;
-  final UsersApi _usersApi;
-
-  DemoScreen({super.key})
-      : _productsApi = ProductsApi(),
-        _usersApi = UsersApi();
+  const DemoScreen({super.key});
 
   @override
   State<DemoScreen> createState() => _DemoScreenState();
@@ -45,41 +42,31 @@ class _DemoScreenState extends State<DemoScreen> {
                   setState(() {
                     _view = view;
                   });
+
+                  unawaited(_readObjects());
                 },
               ),
             ),
-            FutureBuilder(
-              future: _switchView(),
-              builder: (_, snapshot) =>
-                  snapshot.connectionState == ConnectionState.done
-                      ? snapshot.data!
-                      : const Text('Just a moment please...'),
-            ),
+            if (_view != null)
+              ObjectsWidget(_watchObjects())
+            else
+              const Text('No view selected'),
           ],
         ),
       ),
     );
   }
 
-  Future<Widget> _switchView() => switch (_view) {
-        ViewsConst.categories => widget._productsApi.getCategories().then(
-              (coin) => coin.flip<Widget>(
-                ObjectsView.new,
-                (_) => const Text('Error getting categories'),
-              ),
-            ),
-        ViewsConst.products => widget._productsApi.getProducts().then(
-              (coin) => coin.flip<Widget>(
-                ObjectsView.new,
-                (_) => const Text('Error getting products'),
-              ),
-            ),
-        ViewsConst.users => widget._usersApi.getUsers().then(
-              (coin) => coin.flip<Widget>(
-                ObjectsView.new,
-                (_) => const Text('Error getting users'),
-              ),
-            ),
-        _ => Future.value(const Text('No view selected')),
+  List<Object> _watchObjects() => switch (_view!) {
+        ViewsConst.products => context.watch<ProductsProvider>().products,
+        ViewsConst.categories => context.watch<CategoriesProvider>().categories,
+        ViewsConst.users => context.watch<UsersProvider>().users,
+      };
+
+  Future<void> _readObjects() => switch (_view!) {
+        ViewsConst.products => context.read<ProductsProvider>().getProducts(),
+        ViewsConst.categories =>
+          context.read<CategoriesProvider>().getCategories(),
+        ViewsConst.users => context.read<UsersProvider>().getUsers(),
       };
 }
