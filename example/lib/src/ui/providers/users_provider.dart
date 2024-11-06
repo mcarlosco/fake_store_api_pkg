@@ -11,7 +11,7 @@ final class UsersProvider extends ChangeNotifier {
       : _usersApi = UsersApi(),
         _users = List.empty();
 
-  List<UserModel> get users => List.unmodifiable(_users);
+  List<UserModel> get users => _users;
   Exception? get exception => _exception;
 
   bool get hasUsers => _users.isNotEmpty;
