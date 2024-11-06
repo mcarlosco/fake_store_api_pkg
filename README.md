@@ -11,29 +11,52 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# [Fake Store API](https://fakestoreapi.com/) Package
+
+Package developed with [Dart](https://dart.dev/).
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Products API
+
+- [Get all products](https://github.com/mcarlosco/fake_store_api_pkg/blob/main/lib/src/apis/products_api.dart#L8)
+- [Get one product](https://github.com/mcarlosco/fake_store_api_pkg/blob/main/lib/src/apis/products_api.dart#L15)
+- [Get all categories](https://github.com/mcarlosco/fake_store_api_pkg/blob/main/lib/src/apis/products_api.dart#L21)
+
+### Users API
+
+- [Get all users](https://github.com/mcarlosco/fake_store_api_pkg/blob/main/lib/src/apis/users_api.dart#L8)
+- [Get one user](https://github.com/mcarlosco/fake_store_api_pkg/blob/main/lib/src/apis/users_api.dart#L14)
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```yaml
+fake_store_api_pkg:
+  git:
+    url: https://github.com/mcarlosco/fake_store_api_pkg
+    ref: main
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+### Get one product
 
 ```dart
-const like = 'sample';
+Future<void> printProductInfo(int id) async {
+  final productsApi = ProductsApi();
+
+  final coin = await productsApi.getProduct(id);
+
+  coin.flip<void>((product) {
+    print('${product.title} \$${product.price}');
+  }, (_) {
+    print('error getting product: $id');
+  });
+}
 ```
+
+For more, please see this [example](https://github.com/mcarlosco/fake_store_api_pkg/tree/main/example).
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Este repositorio es personal y resuelve la Fase 3 de la Ruta de Crecimiento Práctica del Chapter Mobile.
