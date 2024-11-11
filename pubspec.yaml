@@ -1,0 +1,19 @@
+name: fake_store_api_pkg
+description: Fake Store API Package.
+version: 1.0.0
+repository: https://github.com/mcarlosco/fake_store_api_pkg
+publish_to: "none"
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  http: ^1.2.2
+  fun_pro_pkg:
+    git:
+      url: https://github.com/mcarlosco/fun_pro_pkg
+      ref: main
+
+dev_dependencies:
+  lints: ^4.0.0
+  test: ^1.24.0
