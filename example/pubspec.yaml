@@ -1,0 +1,28 @@
+name: example
+description: "Fake Store API Package Demo."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  fake_store_api_pkg:
+    git:
+      url: https://github.com/mcarlosco/fake_store_api_pkg
+      ref: main
+  google_fonts: ^6.2.1
+  provider: ^6.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/fonts/Lexend/static/
